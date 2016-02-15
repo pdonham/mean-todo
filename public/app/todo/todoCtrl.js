@@ -18,7 +18,7 @@
 			todoService.create(todo).then(
 				function(success){
 					vm.refreshTodos();
-					vm.newTodo = {title: "", description: ""};
+					vm.newTodo = {title: "", description: "", details: ""};
 				},
 				function(error){
 

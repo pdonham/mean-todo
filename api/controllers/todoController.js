@@ -5,7 +5,7 @@ module.exports.controller = function(app, db) {
 	/**
 	 * GET /todo/config
 	 *
-	 * Retrieve config values for the app (front and back)
+	 * Retrieve config values for the app (front and back) from the backend API
 	 *
 	 * @param  {[type]} req         [description]
 	 * @param  {[type]} res){		var todo_id       [description]

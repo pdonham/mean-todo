@@ -7,9 +7,13 @@
 			<button class="btn btn-danger" ng-click="deleteItem();">
 				<span class="glyphicon glyphicon-trash"></span>
 			</button>
+			<button class="btn btn-info">
+				<span class="glyphicon glyphicon-info-sign" ng-click="toggleDetails()"></span>
+			</button>
 		</div>
 		<h4>{{todo.title}}</h4>
 		<p>{{todo.description}}</p>
+		<p ng-show="displayDetails">{{todo.details}}</p>
 	</div>
 
 	<div ng-show="editing">
@@ -22,6 +26,10 @@
 			<div class="form-group">
 				<label>Description</label>
 				<input type="text" class="form-control" name="description" ng-model="todo.description" required>
+			</div>
+			<div class="form-group">
+				<label>Details</label>
+				<input type="text" class="form-control" name="details" ng-model="todo.details" required>
 			</div>
 
 			<div class="pull-right">

@@ -15,7 +15,11 @@
 			templateUrl: 'js/directives/todoItem/todoItem.html',
 			link: function(scope, element, attr){
 				scope.editing = false;
+				scope.displayDetails = false;
 
+				scope.toggleDetails = function () {
+					scope.displayDetails = !scope.displayDetails;
+				}
 				scope.deleteItem = function(){
 					todoService.delete(scope.todo._id).then(
 						function(success){

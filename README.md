@@ -2,6 +2,8 @@
 
 ---
 
+Forked from Stephen Biro's sample Express application (https://github.com/SBero/mean-todo.git) to be used as a starter template.
+
 ## Description
 
 This todo application is meant to showcase a basic MEAN application with a full set of  both unit tests, as well as end to end tests. It requires that your system be intially setup and configured with the following:
@@ -23,6 +25,8 @@ To view the demo, navigate to: _http://localhost:3000_
 ## Node / Express Unit Tests
 
 All node / express unit tests are in _/test/unit-express/_
+
+Note that some tests may return false negatives due to deferred loading (see app.js).
 
 To run the node unit tests, run:
 

@@ -3,6 +3,8 @@
 
     var serviceId = "todoService";
 
+    //Inject CONFIG as a dependency
+
     angular.module('app.services').factory(serviceId, ['CONFIG', '$http', todoService]);
 
     function todoService(CONFIG, $http) {

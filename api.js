@@ -36,7 +36,9 @@ var server = app.listen(serverParams.server.port);
 
 var io = require('socket.io')(server);
 
-// Auto load all controllers for the application
+// Auto load all controllers for the application [from forked code]
+//This is actually a nice approach...no need to require them individually
+//
 fs.readdirSync('./api/controllers').forEach(function (file){
 	if (file.substr(-3) === ".js"){
 		route = require('./api/controllers/' + file);
