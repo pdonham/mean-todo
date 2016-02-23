@@ -1,6 +1,36 @@
-module.exports.controller = function(app, db) {
+module.exports.controller = function (app, db, passport, models) {
 	var resource = "/todo";
-	var todos = db.get('todos');
+	var todos = models.Todo;
+
+	/**
+	 * GET /auth/twitter
+	 *
+	 * Redirect to Twitter for OAUTH login
+	 *
+	 * @param  {[type]} req         [description]
+	 * @param  {[type]} res){		var todo_id       [description]
+	 * @return {[type]}             [description]
+	 */
+	app.get(resource + '/auth/twitter', passport.authenticate('twitter'));
+
+// Twitter will redirect the user to this URL after approval.  Finish the
+// authentication process by attempting to obtain an access token.  If
+// access was granted, the user will be logged in.  Otherwise,
+// authentication has failed.
+	app.get(resource + '/auth/callback',
+		passport.authenticate('twitter', {
+			successRedirect: "/",
+			failureRedirect: resource
+		}));//was + /login
+
+	app.get(resource + '/authenticated', function (req, res) {
+		res.render(resource);
+
+	});
+	passport.authenticate('twitter', {
+		successRedirect: resource + "/authenticated",
+		failureRedirect: resource
+	});//was + /login
 
 	/**
 	 * GET /todo/config
@@ -77,12 +107,26 @@ module.exports.controller = function(app, db) {
 	 * @return {[type]}                                 [description]
 	 */
 	app.post(resource, function(req, res){
-		var todo = req.body;
+		var body = req.body;
+		var title = body.title;
+		var description = body.description;
+		var details = body.details;
+		var newTodo = new todos(
+			{
+				title: title,
+				description: description,
+				details: details
+			}
+		);
 
-		todos.insert(todo, function(err, doc){
-			// if(err) throw err;
-
-			return res.json({message: "Successfully created a new TODO.", todo: doc});
+		newTodo.save(function (err, newTodo) {
+			if (err) {
+				console.log('Error saving todo');
+			}
+			else {
+				console.log('Created todo with id ' + newTodo.id);
+				return res.json({message: "Successfully created a new TODO."});
+			}
 		});
 	});
 
@@ -98,8 +142,8 @@ module.exports.controller = function(app, db) {
 	app.put(resource, function(req, res){
 		
 		var todo = req.body;
-		
-		todos.updateById(todo._id, todo, function(err, doc){
+
+		todos.findByIdAndUpdate(todo._id, todo, function (err, doc) {
 			// if(err) throw err;
 
 			return res.json({message: "Successfully updated a TODO.", todo: todo});
@@ -124,7 +168,7 @@ module.exports.controller = function(app, db) {
 			return res.status(400).send({message: 'Invalid todo id supplied. Please try again.'});
 		}
 
-		todos.findById(todo_id, function(err, doc){
+		todos.findByIdAndRemove(todo_id, function (err, doc) {
 			// if(err) throw err;
 
 			if(doc === null){

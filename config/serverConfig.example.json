@@ -1,0 +1,12 @@
+{
+  "server": {
+    "port": "port number",
+    "name": "app name",
+    "host": "host name",
+    "sessionSecret": "session secret"
+  },
+  "oauth": {
+    "TWITTER_CONSUMER_KEY": "secret key",
+    "TWITTER_CONSUMER_SECRET": "consumer secret"
+  }
+}

@@ -3,6 +3,7 @@
 
 	<form name="todoForm" class="col-md-6">
 		<h3>Create A New TODO</h3>
+		<a href="http://localhost:8080/todo/auth/twitter">Login With Twitter</a>
 		<div class="form-group">
 			<label>Title</label>
 			<input class="form-control" type="text" name="title" ng-model="vm.newTodo.title" required/>
@@ -15,7 +16,7 @@
 
 		<div class="form-group">
 			<label>Details</label>
-			<input class="form-control" type="text" name="description" ng-model="vm.newTodo.details" required/>
+			<input class="form-control" type="text" name="details" ng-model="vm.newTodo.details" required/>
 		</div>
 
 		<button class="btn btn-primary" ng-click="vm.createTodo(vm.newTodo);" ng-disabled="todoForm.$invalid">Create!</button>

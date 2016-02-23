@@ -19,7 +19,6 @@
                 if (typeof id !== 'undefined') {
                     url += "/" + id;
                 }
-
                 return $http.get(url);
             },
             create: function (todo) {
