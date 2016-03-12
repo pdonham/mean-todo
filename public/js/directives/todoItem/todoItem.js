@@ -3,7 +3,8 @@
 
 	var directiveId = "todoItem";
 
-	angular.module('app.directives').directive(directiveId, ['todoService', todoItem]);
+	angular.module('app.directives')
+		.directive(directiveId, ['todoService', todoItem]);
 		
 	function todoItem(todoService){
 		return {

@@ -39,7 +39,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 app.use(express.static(path.join(__dirname, 'public')));
 
 //todo: how is the session secret used?
-app.use(session({secret: serverParams.sessionSecret}));
+app.use(session({secret: serverParams.server.sessionSecret}));
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -82,9 +82,6 @@ passport.use(new TwitterStrategy({
 app.use(passport.initialize());
 app.use(passport.session());
 
-
-var server = app.listen(serverParams.server.port);
-
 var io = require('socket.io')(server);
 
 // Auto load all controllers for the application [from forked code]
@@ -96,3 +93,5 @@ fs.readdirSync('./api/controllers').forEach(function (file){
         route.controller(app, db, passport, models);
 	}
 });
+
+var server = app.listen(serverParams.server.port);
